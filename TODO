@@ -1,4 +1,5 @@
 Do zrobienia:
-1. Dodanie możliwoci udzialu graczy(do czterech), teraz jest tylko jeden(Propozycja: vector graczy w klasie Board)
+1. Dodanie możliwoci udzialu graczy(do trzech - wiecej na najednej klawiaturze nie ma sensu - chyba, że damy graczy zombie), 
+teraz jest tylko jeden(Propozycja: vector graczy w klasie Board)
 2. Bomby(+ smierc gracza)
 3. Zakonczenie gry
