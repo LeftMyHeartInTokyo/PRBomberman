@@ -1,0 +1,11 @@
+Stworzone na podstawie szablonu z 2 projetu PP(Arkanoid, SDL)
+Co, czym jest
+
+main - glowna petla, odczyt nacisnietych klawiszy, inicjalizacja okna
+Player - klasa gracza, jego ruch(obliczanie nowej pozycji), ma wsaźnik na plansz(Board)
+Object - klasa obiektu, po której dziedzicza Rock, Indestruct, Grass
+Rock - zwykly murek, ktory moze byc zniszczony przez bombe
+Indestruct - murek, który nie może być zniszczony przez bombe
+Grass - trawa, po której sie chodzi, po zniszczeniu murku, powinna pojawic sie w jego miejsce
+Board - kontener na elementy planszy(wektory na obiekty), ma wskaźnik na gracza, 
+rysuje plansze, rysuje gracza
