@@ -2,9 +2,9 @@
 #include "Player.h"
 #include<iostream>
 #include<string>
-#include<fstream>
+#include<ctime>
 
-#define OBJECTSINLINE 20 //iloœæ obiektów planszy w 1 linii
+#define OBJECTSINLINE 20 //iloÅ›Ä‡ obiektÃ³w planszy w 1 linii
 #define WIDTH 32
 #define HEIGHT 32
 
@@ -15,9 +15,9 @@ Board::Board(char *nameOfFile, SDL_Surface *screen, Player * player)
 {
 	this->nameOfBoardFile = nameOfFile;
 	this->screen = screen;
-	LoadBoardFromFile(); //za³adowanie planszy
+	LoadBoardFromFile(); //zaÅ‚adowanie planszy
 	this->player = player;
-	player->board = this;//wskaŸnik do planszy dla gracza
+	player->board = this;//wskaÅºnik do planszy dla gracza
 }
 
 Board::~Board()
@@ -27,6 +27,10 @@ Board::~Board()
 void Board::AddRock(Rock rock)
 {
 	this->vectorOfRocks.push_back(rock);
+}
+void Board::AddBomb(Bomb bomb)
+{
+	this->vectorOfBombs.push_back(bomb);
 }
 void Board::AddGrass(Grass grass)
 {
@@ -38,7 +42,7 @@ void Board::AddIndestruct(Indestruct indes)
 }
 void Board::LoadBoardFromFile()
 {
-	char line[22];//+1 <- na koniec ³ancucha znaków '\0'
+	char line[22];//+1 <- na koniec Å‚ancucha znakÃ³w '\0'
 	int currentLine = 0;
 	FILE *fp;
 	fp = fopen(this->nameOfBoardFile, "r");
@@ -51,7 +55,7 @@ void Board::LoadBoardFromFile()
 			strtok(line, "\n");
 			for (int i = 0; i < OBJECTSINLINE; i++)
 			{
-				if (line[i] == 'X') // zwyk³a ceg³a
+				if (line[i] == 'X') // zwykÅ‚a cegÅ‚a
 				{
 					Rock newRock(WIDTH / 2 + i * WIDTH, HEIGHT / 2 + currentLine * HEIGHT);
 					AddRock(newRock);
@@ -81,15 +85,43 @@ void Board::DrawSurface(SDL_Surface *screen, SDL_Surface *sprite, int x, int y) 
 	dest.h = sprite->h;
 	SDL_BlitSurface(sprite, NULL, screen, &dest);
 };
+//wykryj, czy bomby maja wybuchnac w tym momencie
+void Board::HandleExplosions()
+{
+	for (int i = 0; i < vectorOfBombs.size(); i++)
+	{
+		if (vectorOfBombs.at(i).timeOfExplosion < clock())
+			vectorOfBombs.at(i).Explode(); //efekt eksplozji
+	}
+
+}
+//sprawdÅº, czy w tym momencie majÄ… zniknÄ…Ä‡ jakieÅ› bomby
+void Board::DeleteExplodedBombs()
+{
+	for (int i = 0; i < vectorOfBombs.size(); i++)
+	{
+		if (vectorOfBombs.at(i).timeToDelete < clock())
+			vectorOfBombs.erase(vectorOfBombs.begin() + i);
+	}
+}
+//Rozegranie tury, tu wszystko sie wykonuje ostatecznie
+void Board::Play()
+{
+	HandleExplosions();
+	DrawBoard();
+	DeleteExplodedBombs();
+}
 void Board::DrawBoard()
 {
-	//rysowanie elementów planysz
+	//rysowanie elementÃ³w planysz	
 	for (int i = 0; i < vectorOfRocks.size(); i++)
 		DrawSurface(screen, vectorOfRocks.at(i).surface, vectorOfRocks.at(i).x, vectorOfRocks.at(i).y);
 	for (int i = 0; i < vectorOfGrass.size(); i++)
 		DrawSurface(screen, vectorOfGrass.at(i).surface, vectorOfGrass.at(i).x, vectorOfGrass.at(i).y);
 	for (int i = 0; i < vectorOfIndestruct.size(); i++)
 		DrawSurface(screen, vectorOfIndestruct.at(i).surface, vectorOfIndestruct.at(i).x, vectorOfIndestruct.at(i).y);
+	for (int i = 0; i < vectorOfBombs.size(); i++)
+		DrawSurface(screen, vectorOfBombs.at(i).surface, vectorOfBombs.at(i).x, vectorOfBombs.at(i).y);
 	//rysowanie gracza
 	DrawSurface(screen, player->surface, player->x, player->y);
 }
