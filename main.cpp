@@ -1,10 +1,7 @@
 #define _USE_MATH_DEFINES
-#include<math.h>
+
 #include<stdio.h>
-#include<string.h>
 #include<stdlib.h>
-#include<time.h>
-#include"Object.h"
 #include"Board.h"
 #include"Player.h"
 
@@ -69,7 +66,7 @@ int main(int argc, char **argv) {
 
 	//-------------------------------------G£OWNA PÊTLA----------------------------------------
 	while (!quit) {	
-		board.DrawBoard();
+		board.Play();
 		SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
 		SDL_RenderCopy(renderer, scrtex, NULL, NULL);
 		SDL_RenderPresent(renderer);
@@ -83,6 +80,7 @@ int main(int argc, char **argv) {
 				else if (event.key.keysym.sym == SDLK_DOWN) player.Move(0, POSITIONCHANGE);
 				else if (event.key.keysym.sym == SDLK_RIGHT) player.Move(POSITIONCHANGE, 0);
 				else if (event.key.keysym.sym == SDLK_LEFT) player.Move(-POSITIONCHANGE, 0);
+				else if (event.key.keysym.sym == SDLK_SPACE) player.PlantBomb();
 				break;
 			case SDL_QUIT:
 				quit = 1;

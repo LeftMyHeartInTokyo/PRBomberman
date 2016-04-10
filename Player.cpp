@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Board.h"
+#include "Bomb.h"
 
 Player::Player(int x, int y) : Object(x, y, 32, 24, SDL_LoadBMP("./gracz.bmp")) {}
 
@@ -35,4 +36,10 @@ void Player::Move(int xChange, int yChange)
 		this->x += xChange;
 		this->y += yChange;
 	}
+}
+void Player::PlantBomb() //podsadzenie bomby
+{
+	Bomb bomb(this->x, this->y);
+	bomb.whenToExplodeAndDelete(); //ustwienie momentu wybuchu i znikniecia
+	this->board->AddBomb(bomb); //dodanie do wektora bomb na planszy
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Object.h"
+class Bomb;
 class Board;
 class Player : public Object
 {
@@ -9,6 +10,7 @@ public:
 	~Player();
 	void Move(int xChange, int yChange);
 	bool Colision(int x, int y);
+	void PlantBomb();
 private:
 };
 
