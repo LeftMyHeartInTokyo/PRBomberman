@@ -4,7 +4,7 @@
 #include<string>
 #include<ctime>
 
-#define OBJECTSINLINE 20 //ilo≈õƒá obiekt√≥w planszy w 1 linii
+#define OBJECTSINLINE 20 //iloúÊ obiektÛw planszy w 1 linii
 #define WIDTH 32
 #define HEIGHT 32
 
@@ -15,9 +15,9 @@ Board::Board(char *nameOfFile, SDL_Surface *screen, Player * player)
 {
 	this->nameOfBoardFile = nameOfFile;
 	this->screen = screen;
-	LoadBoardFromFile(); //za≈Çadowanie planszy
+	LoadBoardFromFile(); //za≥adowanie planszy
 	this->player = player;
-	player->board = this;//wska≈∫nik do planszy dla gracza
+	player->board = this;//wskaünik do planszy dla gracza
 }
 
 Board::~Board()
@@ -42,7 +42,7 @@ void Board::AddIndestruct(Indestruct indes)
 }
 void Board::LoadBoardFromFile()
 {
-	char line[22];//+1 <- na koniec ≈Çancucha znak√≥w '\0'
+	char line[22];//+1 <- na koniec ≥ancucha znakÛw '\0'
 	int currentLine = 0;
 	FILE *fp;
 	fp = fopen(this->nameOfBoardFile, "r");
@@ -55,7 +55,7 @@ void Board::LoadBoardFromFile()
 			strtok(line, "\n");
 			for (int i = 0; i < OBJECTSINLINE; i++)
 			{
-				if (line[i] == 'X') // zwyk≈Ça ceg≈Ça
+				if (line[i] == 'X') // zwyk≥a ceg≥a
 				{
 					Rock newRock(WIDTH / 2 + i * WIDTH, HEIGHT / 2 + currentLine * HEIGHT);
 					AddRock(newRock);
@@ -95,7 +95,7 @@ void Board::HandleExplosions()
 	}
 
 }
-//sprawd≈∫, czy w tym momencie majƒÖ zniknƒÖƒá jakie≈õ bomby
+//sprawdü, czy w tym momencie majπ zniknπÊ jakieú bomby
 void Board::DeleteExplodedBombs()
 {
 	for (int i = 0; i < vectorOfBombs.size(); i++)
@@ -113,7 +113,7 @@ void Board::Play()
 }
 void Board::DrawBoard()
 {
-	//rysowanie element√≥w planysz	
+	//rysowanie elementÛw planysz	
 	for (int i = 0; i < vectorOfRocks.size(); i++)
 		DrawSurface(screen, vectorOfRocks.at(i).surface, vectorOfRocks.at(i).x, vectorOfRocks.at(i).y);
 	for (int i = 0; i < vectorOfGrass.size(); i++)
