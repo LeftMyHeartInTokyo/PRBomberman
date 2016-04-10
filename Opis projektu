@@ -3,14 +3,14 @@ Stworzone na podstawie szablonu z 2 projetu PP(Arkanoid, SDL)
 Co, czym jest:
 
 main - glowna petla, odczyt nacisnietych klawiszy, inicjalizacja okna
-Player - klasa gracza, jego ruch(obliczanie nowej pozycji), ma wsaźnik na plansz(Board)
+Player - klasa gracza, jego ruch(obliczanie nowej pozycji), ma wsaźnik na plansz(Board), po nacisnieciu spacji podklada bobme
 Object - klasa obiektu, po której dziedzicza Rock, Indestruct, Grass
 Rock - zwykly murek, ktory moze byc zniszczony przez bombe
 Indestruct - murek, który nie może być zniszczony przez bombe
 Grass - trawa, po której sie chodzi, po zniszczeniu murku, powinna pojawic sie w jego miejsce
 Board - odczytuje z pliku "etap.txt" elementy planszy, kontener na elementy planszy(wektory na obiekty), ma wskaźnik na gracza, 
 rysuje plansze, rysuje gracza
-
+Bomb - bomba, podkladana przez gracza, jest jest wybuch, ale bez żadnych skutkow, po prostu znika
 Format pliku planszy:
 X - Rock
 O - Grass
